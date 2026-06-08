@@ -1,0 +1,116 @@
+{
+  "project_name": "SOS Dépannage France",
+  "theme": "Light/Dark Mode (Light Default)",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) for Authority & Clarity, with premium E-commerce patterns",
+  "typography": {
+    "headings": {
+      "family": "Outfit, sans-serif",
+      "weights": ["400", "600", "800"],
+      "tracking": "tracking-tight",
+      "description": "Used for all H1-H4. It provides a highly professional, modern, and serious tone fitting a high-end service platform."
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weights": ["400", "500", "600"],
+      "tracking": "tracking-normal",
+      "description": "Used for all paragraphs, labels, and dashboard data. Excellent legibility for data-heavy views."
+    },
+    "sizes": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl",
+      "h3": "text-xl sm:text-2xl",
+      "h4": "text-lg sm:text-xl",
+      "body": "text-base",
+      "small": "text-sm",
+      "overline": "text-xs uppercase tracking-[0.2em]"
+    }
+  },
+  "colors": {
+    "light": {
+      "background": "#FFFFFF",
+      "surface": "#F9FAFB",
+      "surface_glass": "rgba(255, 255, 255, 0.7)",
+      "border": "#E5E7EB",
+      "text_primary": "#111827",
+      "text_secondary": "#4B5563",
+      "primary": "#0F62FE",
+      "primary_hover": "#0353E9",
+      "emergency_cta": "#FA4D56",
+      "emergency_cta_hover": "#DA1E28"
+    },
+    "dark": {
+      "background": "#0A0A0A",
+      "surface": "#171717",
+      "surface_glass": "rgba(10, 10, 10, 0.6)",
+      "border": "#262626",
+      "text_primary": "#F9FAFB",
+      "text_secondary": "#9CA3AF",
+      "primary": "#4589FF",
+      "primary_hover": "#0F62FE",
+      "emergency_cta": "#FF8389",
+      "emergency_cta_hover": "#FA4D56"
+    }
+  },
+  "spacing_and_layout": {
+    "general": "Generous spacing. Use p-6, p-8, p-12 for containers. gap-8 for grids.",
+    "marketing_grid": "Mode A: 'Tetris' Grid (grid-cols-1 md:grid-cols-8 lg:grid-cols-12, wide gaps). For homepage, services.",
+    "dashboard_grid": "Mode B: 'Control Room' Grid (grid-cols-1 md:grid-cols-3 lg:grid-cols-4, tight gaps). For admin and client areas.",
+    "alignment": "Mobile-first grids. Left-align dense content. Optical alignment for icons inside buttons."
+  },
+  "surfaces_and_borders": {
+    "marketing_cards": "1px solid border (border-border). No heavy drop shadows. Hover: -translate-y-1, shadow-lg, border color darkens.",
+    "glassmorphism": "Used ONLY for sticky headers. backdrop-blur-xl, bg-white/70 (light) or bg-black/60 (dark), with 1px bottom border.",
+    "dashboard_cards": "Flat solid surfaces. Sharp 1px border. Minimal shadow.",
+    "radius": "rounded-xl for cards, rounded-lg for buttons, rounded-md for inputs."
+  },
+  "motion_and_interactions": {
+    "hover": "Explicit hover states. transition-transform and transition-colors duration-200 ease-in-out.",
+    "scroll": "Use framer-motion for progressive scroll reveals on marketing pages (opacity 0 -> 1, y: 20 -> 0).",
+    "microinteractions": "Button active state scale(0.98).",
+    "accessibility": "Respect prefers-reduced-motion."
+  },
+  "components_strategy": {
+    "marketing": "Custom pure HTML + Tailwind for unique overlapping and asymmetrical layouts.",
+    "dashboard_and_ecommerce": "Shadcn UI (Cards, Tables, Forms, Dialogs). Go cardless where possible in dashboards for higher density.",
+    "forms": "Multi-step intervention form using customized Shadcn Form, Input, Select components.",
+    "icons": "lucide-react for standard UI, @phosphor-icons/react for marketing highlights.",
+    "toggles": "Dark/Light and FR/EN toggles visible in the header.",
+    "testing": "All interactive elements MUST have data-testid attributes (e.g., data-testid=\"emergency-cta\")."
+  },
+  "image_urls": {
+    "hero_background": {
+      "url": "https://images.unsplash.com/photo-1526821799652-2dc51675628e",
+      "description": "France cityscape evening, used as a subtle background for the national coverage section."
+    },
+    "hero_worker": {
+      "url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e",
+      "description": "Professional electrician with hardhat, used for the main hero section to inspire trust."
+    },
+    "service_plumbing": {
+      "url": "https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg",
+      "description": "Plumber installing steel pipes."
+    },
+    "service_electrical": {
+      "url": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e",
+      "description": "Electrician working on panel."
+    },
+    "service_locksmith": {
+      "url": "https://images.unsplash.com/photo-1564767609213-c75ee685263a",
+      "description": "Locksmith repairing door."
+    },
+    "service_heating": {
+      "url": "https://images.unsplash.com/photo-1660330589827-da8ab7dd3c02",
+      "description": "HVAC technician working."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install and use 'lucide-react' and '@phosphor-icons/react'.",
+    "Implement a robust Dark/Light mode toggle utilizing Tailwind's 'dark' class strategy.",
+    "Implement an i18n structure for FR/EN toggle. Default to FR.",
+    "Ensure the hero section CTA 'Demander une intervention' uses the 'emergency_cta' color.",
+    "The e-commerce and dashboard sections must follow a strict, high-density 'Control Room' grid (Mode B).",
+    "Marketing pages (Home, About, Services) must use the 'Tetris' grid (Mode A) to break standard layouts.",
+    "Always use the media URLs provided in this document. Never use placeholder services.",
+    "Ensure 'data-testid' attributes are added to all interactive elements."
+  ]
+}
