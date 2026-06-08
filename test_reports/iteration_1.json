@@ -1,0 +1,50 @@
+{
+  "summary": "First end-to-end test for SOS Dépannage France. Backend: 28/28 pytest tests pass (100%). Frontend: critical user/admin flows work (home, theme toggle, language toggle, services catalogue with filtering, shop, cart, login → admin redirect /admin, login → client redirect /account, all admin tabs, account tabs, public pages). One frontend integration issue with the intervention form submit (success toast not detected — likely a missing data-testid for confirmation and missing test-ids on postal_code/city fields).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "get_token_from_request (auth helper)", "issue": "Cookie takes precedence over Authorization Bearer header. A stale httpOnly cookie can override a freshly-issued Bearer token in the same browser/session. Should consider preferring explicit Bearer header or clearing cookie on every login."},
+      {"endpoint": "/api/auth/login", "issue": "No brute-force lockout (playbook recommends 5-fail lockout). All login attempts return uniformly."},
+      {"endpoint": "/api/public/stats", "issue": "Stats are synthetic offsets (+12847 interventions, +5234 clients) — acceptable for MVP but noted."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "InterventionRequest.jsx", "issue": "Required fields `code postal` (#postal_code) and `ville` (#city) have NO data-testid (review-request spec listed iv-* but missing these two). Native HTML required validation pops up and blocks submit if not filled. Also form auto-prefills first_name/last_name/email/phone from logged-in user via useEffect which can race with programmatic fills.", "selector": "#postal_code, #city", "priority": "MEDIUM"},
+      {"component": "Header.jsx NAV testids", "issue": "Actual testids are `nav-nav_home`, `nav-nav_services`, `nav-nav_shop`, etc. (double prefix because NAV.key already starts with `nav_`). The review-request documented them as `nav-services`, `nav-shop` etc. Either update keys to `home`/`services` or update spec.", "selector": "[data-testid=\"nav-nav_services\"]", "priority": "LOW"},
+      {"component": "Cart.jsx checkout-btn", "issue": "Clicking checkout when unauthenticated did not redirect to /login (URL stayed at /cart). If the spec is to redirect or open an inline checkout form, please verify behavior. No visible feedback was given to the user on click.", "selector": "[data-testid=\"checkout-btn\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [
+      {"flow": "Intervention form submit (logged client)", "issue": "After filling all fields and clicking iv-submit, no success toast/dialog appeared and URL stayed at /intervention. POST /api/interventions works (backend test passes), so this is likely a missing Sonner/toast on success or missing data-testid like `iv-success`. Recommend adding `data-testid=\"iv-success\"` to the success indicator.", "affected_selectors": ["[data-testid=\"iv-submit\"]"]}
+    ],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Add data-testid attributes for `iv-city`, `iv-postal-code` on intervention form inputs (#city and #postal_code)",
+    "Add data-testid for intervention success indicator (e.g. iv-success or a toast) so submission can be verified by tests/users",
+    "Verify cart checkout-btn behavior when unauthenticated — currently a click on /cart does nothing visible (no redirect to /login, no error). Either redirect to /login or show inline login prompt",
+    "(Optional) Rename NAV keys in Header.jsx from `nav_home`/`nav_services` etc to `home`/`services` so testids become `nav-home`/`nav-services` as documented",
+    "(Optional/Security) Consider reversing token precedence: prefer Authorization Bearer over cookie to avoid stale-cookie shadowing; also add brute-force lockout (5 fails) on /api/auth/login"
+  ],
+  "critical_code_review_comments": [
+    "server.py is a 824-line single file with all routes, models, seed, helpers — fine for MVP but should be split into routers (auth/services/products/orders/interventions/admin) and a seed.py for maintainability beyond MVP.",
+    "Auth: httpOnly cookie precedence over Bearer header may cause hard-to-debug auth issues (stale session > fresh token).",
+    "All Mongo queries correctly exclude `_id` via projection {'_id': 0} — good.",
+    "@app.on_event is deprecated in modern FastAPI — should migrate to lifespan handler.",
+    "Frontend intervention form auto-prefills via useEffect dependent on user — make sure the effect only runs on mount or guard for race with manual edits."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py"
+  ],
+  "success_rate": {"backend": "100% (28/28)", "frontend": "~92% (22/24 critical flows verified)"},
+  "test_credentials": "Used as provided: admin@store.com/Admin123!, client1@store.com/Client123! — both work",
+  "seed_data_creation": "None added beyond what the seed_database() startup creates. Test data uses TEST_ prefix.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend is solid (100% pass). Focus next testing on: (1) intervention form success indicator after frontend fix, (2) cart checkout flow end-to-end (login → checkout → order created → visible in /account orders tab and /admin orders tab), (3) admin CRUD UI for services/products (create-service-btn, save-service, create-product-btn, save-product), (4) admin order/intervention status patch from UI, (5) admin user toggle/delete from UI. Intervention form has fields #postal_code and #city without data-testid — main agent should add them.",
+  "rca_of_intervention_submit_issue": "Form has required HTML5 fields city (#city) and postal_code (#postal_code) without data-testid. When tested via Playwright without filling them, browser native validation prevents submit. When filled and submitted, POST /api/interventions returns 200 (proven via backend test) but no visible success toast was rendered on the page. Suggests either toast not implemented or rendered but not query-able. Add data-testid=\"iv-success\" to the success state UI."
+}
