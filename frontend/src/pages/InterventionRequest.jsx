@@ -20,6 +20,7 @@ export default function InterventionRequest() {
   const { user } = useAuth();
   const [params] = useSearchParams();
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     first_name: "", last_name: "", email: "", phone: "",
     address: "", city: "", postal_code: "",
@@ -42,7 +43,8 @@ export default function InterventionRequest() {
     try {
       await api.post("/interventions", form);
       toast.success(t("intervention_success"));
-      navigate(user ? "/account/interventions" : "/");
+      setSubmitted(true);
+      setTimeout(() => navigate(user ? "/account/interventions" : "/"), 1800);
     } catch (e) {
       toast.error(formatApiError(e));
     } finally {
@@ -52,6 +54,11 @@ export default function InterventionRequest() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16" data-testid="intervention-page">
+      {submitted && (
+        <div data-testid="iv-success" className="mb-6 rounded-xl border border-success/30 bg-success/10 p-5 text-sm font-medium animate-fade-up">
+          ✓ {t("intervention_success")}
+        </div>
+      )}
       <header className="mb-10">
         <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">Demande</div>
         <h1 className="font-display font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl">{t("intervention_title")}</h1>
@@ -98,11 +105,11 @@ export default function InterventionRequest() {
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="postal_code">{t("postal_code")}</Label>
-              <Input id="postal_code" required value={form.postal_code} onChange={(e) => setForm({ ...form, postal_code: e.target.value })} />
+              <Input id="postal_code" required value={form.postal_code} onChange={(e) => setForm({ ...form, postal_code: e.target.value })} data-testid="iv-postal-code" />
             </div>
             <div>
               <Label htmlFor="city">{t("city")}</Label>
-              <Input id="city" required value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+              <Input id="city" required value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} data-testid="iv-city" />
             </div>
           </div>
         </fieldset>

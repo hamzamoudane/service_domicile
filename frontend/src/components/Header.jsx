@@ -16,13 +16,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const NAV = [
-  { to: "/", key: "nav_home" },
-  { to: "/services", key: "nav_services" },
-  { to: "/shop", key: "nav_shop" },
-  { to: "/about", key: "nav_about" },
-  { to: "/reviews", key: "nav_reviews" },
-  { to: "/faq", key: "nav_faq" },
-  { to: "/contact", key: "nav_contact" },
+  { to: "/", key: "nav_home", id: "home" },
+  { to: "/services", key: "nav_services", id: "services" },
+  { to: "/shop", key: "nav_shop", id: "shop" },
+  { to: "/about", key: "nav_about", id: "about" },
+  { to: "/reviews", key: "nav_reviews", id: "reviews" },
+  { to: "/faq", key: "nav_faq", id: "faq" },
+  { to: "/contact", key: "nav_contact", id: "contact" },
 ];
 
 export default function Header() {
@@ -60,7 +60,7 @@ export default function Header() {
                 key={n.to}
                 to={n.to}
                 end={n.to === "/"}
-                data-testid={`nav-${n.key}`}
+                data-testid={`nav-${n.id}`}
                 className={({ isActive }) =>
                   `px-3 py-2 text-sm font-medium rounded-md transition-colors hover:text-foreground hover:bg-muted ${
                     isActive ? "text-foreground bg-muted" : "text-muted-foreground"

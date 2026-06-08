@@ -20,6 +20,15 @@ export default function Cart() {
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ address: "", city: "", postal_code: "", phone: "", notes: "" });
 
+  const handleCheckout = () => {
+    if (!user) {
+      toast.info(t("login_title"));
+      navigate("/login?next=/cart");
+      return;
+    }
+    setCheckout(true);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -113,7 +122,7 @@ export default function Cart() {
               <span className="tabular-nums">{subtotal.toFixed(2)} €</span>
             </div>
             {!checkout && (
-              <Button className="w-full mt-5" onClick={() => setCheckout(true)} data-testid="checkout-btn">
+              <Button className="w-full mt-5" onClick={handleCheckout} data-testid="checkout-btn">
                 {t("cart_checkout")} <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             )}
