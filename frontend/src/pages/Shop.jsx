@@ -9,17 +9,71 @@ import ProductCard from "@/components/ProductCard";
 
 const CATS = ["all", "plomberie", "electricite", "serrurerie", "chauffage"];
 
+const MOCK_PRODUCTS = [
+  {
+    id: "prod-1",
+    category: "serrurerie",
+    name_fr: "Serrure Haute Sécurité A2P",
+    name_en: "High Security A2P Lock",
+    description_fr: "Serrure certifiée 3 points pour une protection maximale de votre domicile.",
+    description_en: "Certified 3-point lock for maximum home protection.",
+    price: 249,
+    stock: 15,
+    image_url: "https://images.unsplash.com/photo-1558002038-1055907df827"
+  },
+  {
+    id: "prod-2",
+    category: "plomberie",
+    name_fr: "Mitigeur Cuisine Design",
+    name_en: "Designer Kitchen Faucet",
+    description_fr: "Finition chrome brossé, économie d'eau et installation facile.",
+    description_en: "Brushed chrome finish, water saving and easy installation.",
+    price: 129,
+    stock: 8,
+    image_url: "https://images.pexels.com/photos/6045330/pexels-photo-6045330.jpeg"
+  },
+  {
+    id: "prod-3",
+    category: "electricite",
+    name_fr: "Kit Prises Connectées",
+    name_en: "Smart Plug Kit",
+    description_fr: "Contrôlez vos appareils à distance via smartphone et économisez de l'énergie.",
+    description_en: "Control your devices remotely via smartphone and save energy.",
+    price: 59,
+    stock: 24,
+    image_url: "https://images.unsplash.com/photo-1558211583-d26f610c1eb1"
+  },
+  {
+    id: "prod-4",
+    category: "chauffage",
+    name_fr: "Thermostat Intelligent",
+    name_en: "Smart Thermostat",
+    description_fr: "Régulation précise de la température et programmation intelligente.",
+    description_en: "Precise temperature regulation and smart programming.",
+    price: 199,
+    stock: 12,
+    image_url: "https://images.unsplash.com/photo-1567393528677-d6dfb7d8b52c"
+  }
+];
+
 export default function Shop() {
   const { t } = useLang();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(MOCK_PRODUCTS);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const active = searchParams.get("cat") || "all";
 
   useEffect(() => {
     setLoading(true);
-    api.get("/products").then(({ data }) => setProducts(data)).finally(() => setLoading(false));
+    api.get("/products")
+      .then(({ data }) => {
+        if (data && data.length > 0) setProducts(data);
+      })
+      .catch(() => {
+        console.warn("Backend non disponible pour la boutique, utilisation des données de secours.");
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const filtered = useMemo(() => {

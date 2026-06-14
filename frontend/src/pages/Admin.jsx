@@ -21,6 +21,33 @@ const CATS = ["plomberie", "electricite", "serrurerie", "chauffage", "assainisse
 const ORDER_STATUSES = ["pending", "confirmed", "processing", "completed", "cancelled"];
 const IV_STATUSES = ["pending", "confirmed", "in_progress", "completed", "cancelled"];
 
+const MOCK_STATS = {
+  orders_count: 142,
+  pending_orders: 5,
+  interventions_count: 850,
+  pending_interventions: 12,
+  urgent_interventions: 3,
+  clients_count: 1240,
+  revenue: 85400,
+  top_services: [
+    { _id: "plomberie", count: 320 },
+    { _id: "serrurerie", count: 210 },
+    { _id: "electricite", count: 180 },
+    { _id: "chauffage", count: 90 },
+    { _id: "assainissement", count: 50 }
+  ],
+  recent_orders: [
+    { id: "ord-1", created_at: new Date().toISOString(), status: "pending", total: 249 },
+    { id: "ord-2", created_at: new Date(Date.now() - 3600000).toISOString(), status: "completed", total: 129 },
+    { id: "ord-3", created_at: new Date(Date.now() - 7200000).toISOString(), status: "confirmed", total: 59 }
+  ],
+  recent_interventions: [
+    { id: "iv-1", first_name: "Jean", last_name: "Dupont", service_category: "serrurerie", status: "pending", created_at: new Date().toISOString() },
+    { id: "iv-2", first_name: "Marie", last_name: "L.", service_category: "plomberie", status: "in_progress", created_at: new Date(Date.now() - 1800000).toISOString() },
+    { id: "iv-3", first_name: "Luc", last_name: "M.", service_category: "electricite", status: "completed", created_at: new Date(Date.now() - 86400000).toISOString() }
+  ]
+};
+
 function StatusSelect({ value, onChange, options }) {
   const { t } = useLang();
   return (
@@ -36,10 +63,16 @@ function StatusSelect({ value, onChange, options }) {
 // ============ Dashboard ============
 function Dashboard() {
   const { t } = useLang();
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState(MOCK_STATS);
 
   useEffect(() => {
-    api.get("/admin/stats").then(({ data }) => setStats(data)).catch(() => {});
+    api.get("/admin/stats")
+      .then(({ data }) => {
+        if (data) setStats(data);
+      })
+      .catch(() => {
+        console.warn("Backend non disponible pour l'admin, utilisation des stats de secours.");
+      });
   }, []);
 
   if (!stats) return <div className="text-muted-foreground">{t("loading")}</div>;
@@ -129,13 +162,21 @@ function Dashboard() {
 // ============ Services ============
 function ServicesManager() {
   const { t } = useLang();
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    { id: "s1", name_fr: "Dépannage Plomberie", category: "plomberie", price: 89, active: true },
+    { id: "s2", name_fr: "Ouverture Porte", category: "serrurerie", price: 150, active: true },
+    { id: "s3", name_fr: "Installation Prise", category: "electricite", price: 75, active: true }
+  ]);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const empty = { name_fr: "", name_en: "", description_fr: "", description_en: "", category: "plomberie", price: 0, price_label: "", image_url: "", active: true, popular: false };
   const [form, setForm] = useState(empty);
 
-  const load = () => api.get("/services").then(({ data }) => setItems(data));
+  const load = () => {
+    api.get("/services")
+      .then(({ data }) => { if (data && data.length > 0) setItems(data); })
+      .catch(() => {});
+  };
   useEffect(() => { load(); }, []);
 
   const openCreate = () => { setEditing(null); setForm(empty); setOpen(true); };
@@ -226,13 +267,20 @@ function ServicesManager() {
 // ============ Products ============
 function ProductsManager() {
   const { t } = useLang();
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    { id: "p1", name_fr: "Serrure A2P", category: "serrurerie", price: 249, stock: 15, active: true },
+    { id: "p2", name_fr: "Mitigeur Chrome", category: "plomberie", price: 129, stock: 8, active: true }
+  ]);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const empty = { name_fr: "", name_en: "", description_fr: "", description_en: "", category: "plomberie", price: 0, stock: 0, images: [""], active: true };
   const [form, setForm] = useState(empty);
 
-  const load = () => api.get("/products").then(({ data }) => setItems(data));
+  const load = () => {
+    api.get("/products")
+      .then(({ data }) => { if (data && data.length > 0) setItems(data); })
+      .catch(() => {});
+  };
   useEffect(() => { load(); }, []);
 
   const openCreate = () => { setEditing(null); setForm(empty); setOpen(true); };

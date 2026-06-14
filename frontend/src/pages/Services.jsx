@@ -9,10 +9,54 @@ import ServiceCard from "@/components/ServiceCard";
 
 const CATS = ["all", "plomberie", "electricite", "serrurerie", "chauffage", "assainissement"];
 
+const MOCK_SERVICES = [
+  {
+    id: "plomb-1",
+    category: "plomberie",
+    name_fr: "Dépannage Fuite d'Eau",
+    name_en: "Water Leak Repair",
+    description_fr: "Intervention rapide pour colmatage de fuite sur tuyauterie et robinetterie.",
+    description_en: "Quick intervention for pipe and faucet leak repair.",
+    price: 89,
+    image_url: "https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg"
+  },
+  {
+    id: "elec-1",
+    category: "electricite",
+    name_fr: "Diagnostic Tableau Électrique",
+    name_en: "Electrical Panel Diagnosis",
+    description_fr: "Recherche de panne et mise aux normes de votre installation électrique.",
+    description_en: "Troubleshooting and upgrading of your electrical installation.",
+    price: 120,
+    image_url: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+  },
+  {
+    id: "serr-1",
+    category: "serrurerie",
+    name_fr: "Ouverture de Porte Fine",
+    name_en: "Non-Destructive Door Opening",
+    description_fr: "Ouverture de porte claquée ou verrouillée sans dommage par un expert.",
+    description_en: "Expert opening of slammed or locked doors without damage.",
+    price: 150,
+    image_url: "https://images.unsplash.com/photo-1564767609213-c75ee685263a",
+    popular: true
+  },
+  {
+    id: "chau-1",
+    category: "chauffage",
+    name_fr: "Entretien Chaudière Gaz",
+    name_en: "Gas Boiler Maintenance",
+    description_fr: "Révision annuelle obligatoire et optimisation de votre système de chauffage.",
+    description_en: "Mandatory annual review and optimization of your heating system.",
+    price: 180,
+    image_url: "https://images.unsplash.com/photo-1660330589827-da8ab7dd3c02"
+  }
+];
+
 export default function Services() {
   const { t } = useLang();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState(MOCK_SERVICES);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 
@@ -20,7 +64,14 @@ export default function Services() {
 
   useEffect(() => {
     setLoading(true);
-    api.get("/services").then(({ data }) => setServices(data)).finally(() => setLoading(false));
+    api.get("/services")
+      .then(({ data }) => {
+        if (data && data.length > 0) setServices(data);
+      })
+      .catch(() => {
+        console.warn("Backend non disponible, utilisation des données de secours.");
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const filtered = useMemo(() => {

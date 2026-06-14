@@ -41,8 +41,12 @@ export default function About() {
         </div>
         <div className="lg:col-span-5">
           <Reveal delay={120}>
-            <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border">
-              <img src="https://images.unsplash.com/photo-1564767609213-c75ee685263a" alt="Artisan" className="h-full w-full object-cover" />
+            <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border shadow-2xl relative">
+              <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e" alt="Artisan Professionnel" className="h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white text-sm font-medium">
+                Notre engagement : Excellence et Réactivité
+              </div>
             </div>
           </Reveal>
         </div>
