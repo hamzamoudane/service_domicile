@@ -11,45 +11,52 @@ const CATS = ["all", "plomberie", "electricite", "serrurerie", "chauffage", "ass
 
 const MOCK_SERVICES = [
   {
-    id: "plomb-1",
-    category: "plomberie",
-    name_fr: "Dépannage Fuite d'Eau",
-    name_en: "Water Leak Repair",
-    description_fr: "Intervention rapide pour colmatage de fuite sur tuyauterie et robinetterie.",
+    id: "plomb-1", category: "plomberie", name_fr: "Dépannage Fuite d'Eau", name_en: "Water Leak Repair",
+    description_fr: "Intervention ultra-rapide pour colmatage de fuite sur tuyauterie et robinetterie.",
     description_en: "Quick intervention for pipe and faucet leak repair.",
-    price: 89,
-    images: ["https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800"]
+    price: 89, images: ["https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800"]
   },
   {
-    id: "elec-1",
-    category: "electricite",
-    name_fr: "Diagnostic Tableau Électrique",
-    name_en: "Electrical Panel Diagnosis",
+    id: "plomb-2", category: "plomberie", name_fr: "Installation Sanitaire Luxe", name_en: "Luxury Sanitary Install",
+    description_fr: "Pose de robinetterie haut de gamme et équipements sanitaires design.",
+    description_en: "Installation of high-end faucets and design sanitary equipment.",
+    price: 250, images: ["https://images.unsplash.com/photo-1585128792020-803d29415281?auto=format&fit=crop&q=80&w=800"], popular: true
+  },
+  {
+    id: "elec-1", category: "electricite", name_fr: "Diagnostic Tableau Électrique", name_en: "Electrical Panel Diagnosis",
     description_fr: "Recherche de panne et mise aux normes de votre installation électrique.",
     description_en: "Troubleshooting and upgrading of your electrical installation.",
-    price: 120,
-    images: ["https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800"]
+    price: 120, images: ["https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800"]
   },
   {
-    id: "serr-1",
-    category: "serrurerie",
-    name_fr: "Ouverture de Porte Fine",
-    name_en: "Non-Destructive Door Opening",
+    id: "elec-2", category: "electricite", name_fr: "Installation Bornes Recharge", name_en: "EV Charger Installation",
+    description_fr: "Pose de stations de recharge pour véhicules électriques à domicile.",
+    description_en: "Installation of home charging stations for electric vehicles.",
+    price: 450, images: ["https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=800"]
+  },
+  {
+    id: "serr-1", category: "serrurerie", name_fr: "Ouverture de Porte Fine", name_en: "Non-Destructive Door Opening",
     description_fr: "Ouverture de porte claquée ou verrouillée sans dommage par un expert.",
     description_en: "Expert opening of slammed or locked doors without damage.",
-    price: 150,
-    images: ["https://images.unsplash.com/photo-1564767609213-c75ee685263a?auto=format&fit=crop&q=80&w=800"],
-    popular: true
+    price: 150, images: ["https://images.unsplash.com/photo-1564767609213-c75ee685263a?auto=format&fit=crop&q=80&w=800"], popular: true
   },
   {
-    id: "chau-1",
-    category: "chauffage",
-    name_fr: "Entretien Chaudière Gaz",
-    name_en: "Gas Boiler Maintenance",
+    id: "serr-2", category: "serrurerie", name_fr: "Blindage de Porte", name_en: "Door Armoring",
+    description_fr: "Renforcement de votre sécurité avec des solutions de blindage certifiées.",
+    description_en: "Strengthen your security with certified armoring solutions.",
+    price: 890, images: ["https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&q=80&w=800"]
+  },
+  {
+    id: "chau-1", category: "chauffage", name_fr: "Entretien Chaudière Gaz", name_en: "Gas Boiler Maintenance",
     description_fr: "Révision annuelle obligatoire et optimisation de votre système de chauffage.",
     description_en: "Mandatory annual review and optimization of your heating system.",
-    price: 180,
-    images: ["https://images.unsplash.com/photo-1585128792020-803d29415281?auto=format&fit=crop&q=80&w=800"]
+    price: 180, images: ["https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&q=80&w=800"]
+  },
+  {
+    id: "assain-1", category: "assainissement", name_fr: "Curage Canalisation", name_en: "Pipe Cleaning",
+    description_fr: "Nettoyage haute pression pour prévenir les bouchons et odeurs.",
+    description_en: "High-pressure cleaning to prevent clogs and odors.",
+    price: 195, images: ["https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&q=80&w=800"]
   }
 ];
 

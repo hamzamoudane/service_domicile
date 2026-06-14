@@ -11,48 +11,52 @@ const CATS = ["all", "plomberie", "electricite", "serrurerie", "chauffage"];
 
 const MOCK_PRODUCTS = [
   {
-    id: "prod-1",
-    category: "serrurerie",
-    name_fr: "Serrure Haute Sécurité A2P",
-    name_en: "High Security A2P Lock",
+    id: "prod-1", category: "serrurerie", name_fr: "Serrure Haute Sécurité A2P", name_en: "High Security A2P Lock",
     description_fr: "Serrure certifiée 3 points pour une protection maximale de votre domicile.",
     description_en: "Certified 3-point lock for maximum home protection.",
-    price: 249,
-    stock: 15,
-    images: ["https://images.unsplash.com/photo-1558002038-1055907df827"]
+    price: 249, stock: 15, images: ["https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&q=80&w=800"]
   },
   {
-    id: "prod-2",
-    category: "plomberie",
-    name_fr: "Mitigeur Cuisine Design",
-    name_en: "Designer Kitchen Faucet",
+    id: "prod-2", category: "plomberie", name_fr: "Mitigeur Cuisine Design", name_en: "Designer Kitchen Faucet",
     description_fr: "Finition chrome brossé, économie d'eau et installation facile.",
     description_en: "Brushed chrome finish, water saving and easy installation.",
-    price: 129,
-    stock: 8,
-    images: ["https://images.pexels.com/photos/6045330/pexels-photo-6045330.jpeg"]
+    price: 129, stock: 8, images: ["https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800"]
   },
   {
-    id: "prod-3",
-    category: "electricite",
-    name_fr: "Kit Prises Connectées",
-    name_en: "Smart Plug Kit",
+    id: "prod-3", category: "electricite", name_fr: "Kit Prises Connectées", name_en: "Smart Plug Kit",
     description_fr: "Contrôlez vos appareils à distance via smartphone et économisez de l'énergie.",
     description_en: "Control your devices remotely via smartphone and save energy.",
-    price: 59,
-    stock: 24,
-    images: ["https://images.unsplash.com/photo-1558211583-d26f610c1eb1"]
+    price: 59, stock: 24, images: ["https://images.unsplash.com/photo-1558211583-d26f610c1eb1?auto=format&fit=crop&q=80&w=800"]
   },
   {
-    id: "prod-4",
-    category: "chauffage",
-    name_fr: "Thermostat Intelligent",
-    name_en: "Smart Thermostat",
+    id: "prod-4", category: "chauffage", name_fr: "Thermostat Intelligent", name_en: "Smart Thermostat",
     description_fr: "Régulation précise de la température et programmation intelligente.",
     description_en: "Precise temperature regulation and smart programming.",
-    price: 199,
-    stock: 12,
-    images: ["https://images.unsplash.com/photo-1560393295-588aa440fda0?auto=format&fit=crop&q=80&w=800"]
+    price: 199, stock: 12, images: ["https://images.unsplash.com/photo-1560393295-588aa440fda0?auto=format&fit=crop&q=80&w=800"]
+  },
+  {
+    id: "prod-5", category: "serrurerie", name_fr: "Caméra Surveillance 4K", name_en: "4K Security Camera",
+    description_fr: "Vision nocturne, détection de mouvement et stockage cloud sécurisé.",
+    description_en: "Night vision, motion detection and secure cloud storage.",
+    price: 185, stock: 30, images: ["https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&q=80&w=800"]
+  },
+  {
+    id: "prod-6", category: "plomberie", name_fr: "Pommeau Douche LED", name_en: "LED Shower Head",
+    description_fr: "Indicateur de température par couleur et économie d'eau intégrée.",
+    description_en: "Color temperature indicator and integrated water saving.",
+    price: 45, stock: 50, images: ["https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=800"]
+  },
+  {
+    id: "prod-7", category: "electricite", name_fr: "Panneau Solaire Balcon", name_en: "Balcony Solar Panel",
+    description_fr: "Plug & Play, commencez à produire votre propre électricité immédiatement.",
+    description_en: "Plug & Play, start producing your own electricity immediately.",
+    price: 499, stock: 5, images: ["https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&q=80&w=800"]
+  },
+  {
+    id: "prod-8", category: "chauffage", name_fr: "Radiateur Inertie Fonte", name_en: "Cast Iron Radiator",
+    description_fr: "Chaleur douce et durable pour un confort thermique optimal.",
+    description_en: "Gentle and durable heat for optimal thermal comfort.",
+    price: 320, stock: 10, images: ["https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&q=80&w=800"]
   }
 ];
 
