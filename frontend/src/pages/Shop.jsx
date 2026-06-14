@@ -52,7 +52,7 @@ const MOCK_PRODUCTS = [
     description_en: "Precise temperature regulation and smart programming.",
     price: 199,
     stock: 12,
-    images: ["https://images.unsplash.com/photo-1594818821917-bc60c32752e5"]
+    images: ["https://images.unsplash.com/photo-1560393295-588aa440fda0?auto=format&fit=crop&q=80&w=800"]
   }
 ];
 
