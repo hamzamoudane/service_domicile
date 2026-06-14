@@ -12,6 +12,7 @@ export default function ServiceCard({ service }) {
   const { add } = useCart();
   const name = lang === "en" ? service.name_en : service.name_fr;
   const desc = lang === "en" ? service.description_en : service.description_fr;
+  const image = service.images?.[0] || service.image_url || "https://placehold.co/800x600?text=Service";
 
   const handleAdd = () => {
     add({
@@ -19,7 +20,7 @@ export default function ServiceCard({ service }) {
       item_id: service.id,
       name,
       price: service.price,
-      image_url: service.image_url,
+      image_url: image,
       quantity: 1,
     });
     toast.success(lang === "fr" ? "Ajouté au panier" : "Added to cart");
@@ -32,7 +33,7 @@ export default function ServiceCard({ service }) {
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
-          src={service.image_url}
+          src={image}
           alt={name}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

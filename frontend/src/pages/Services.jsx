@@ -18,7 +18,7 @@ const MOCK_SERVICES = [
     description_fr: "Intervention rapide pour colmatage de fuite sur tuyauterie et robinetterie.",
     description_en: "Quick intervention for pipe and faucet leak repair.",
     price: 89,
-    image_url: "https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg"
+    images: ["https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800"]
   },
   {
     id: "elec-1",
@@ -28,7 +28,7 @@ const MOCK_SERVICES = [
     description_fr: "Recherche de panne et mise aux normes de votre installation électrique.",
     description_en: "Troubleshooting and upgrading of your electrical installation.",
     price: 120,
-    image_url: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+    images: ["https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800"]
   },
   {
     id: "serr-1",
@@ -38,7 +38,7 @@ const MOCK_SERVICES = [
     description_fr: "Ouverture de porte claquée ou verrouillée sans dommage par un expert.",
     description_en: "Expert opening of slammed or locked doors without damage.",
     price: 150,
-    image_url: "https://images.unsplash.com/photo-1564767609213-c75ee685263a",
+    images: ["https://images.unsplash.com/photo-1564767609213-c75ee685263a?auto=format&fit=crop&q=80&w=800"],
     popular: true
   },
   {
@@ -49,7 +49,7 @@ const MOCK_SERVICES = [
     description_fr: "Révision annuelle obligatoire et optimisation de votre système de chauffage.",
     description_en: "Mandatory annual review and optimization of your heating system.",
     price: 180,
-    image_url: "https://images.unsplash.com/photo-1660330589827-da8ab7dd3c02"
+    images: ["https://images.unsplash.com/photo-1585128792020-803d29415281?auto=format&fit=crop&q=80&w=800"]
   }
 ];
 
