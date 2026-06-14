@@ -19,7 +19,7 @@ const MOCK_PRODUCTS = [
     description_en: "Certified 3-point lock for maximum home protection.",
     price: 249,
     stock: 15,
-    image_url: "https://images.unsplash.com/photo-1558002038-1055907df827"
+    images: ["https://images.unsplash.com/photo-1558002038-1055907df827"]
   },
   {
     id: "prod-2",
@@ -30,7 +30,7 @@ const MOCK_PRODUCTS = [
     description_en: "Brushed chrome finish, water saving and easy installation.",
     price: 129,
     stock: 8,
-    image_url: "https://images.pexels.com/photos/6045330/pexels-photo-6045330.jpeg"
+    images: ["https://images.pexels.com/photos/6045330/pexels-photo-6045330.jpeg"]
   },
   {
     id: "prod-3",
@@ -41,7 +41,7 @@ const MOCK_PRODUCTS = [
     description_en: "Control your devices remotely via smartphone and save energy.",
     price: 59,
     stock: 24,
-    image_url: "https://images.unsplash.com/photo-1558211583-d26f610c1eb1"
+    images: ["https://images.unsplash.com/photo-1558211583-d26f610c1eb1"]
   },
   {
     id: "prod-4",
@@ -52,7 +52,7 @@ const MOCK_PRODUCTS = [
     description_en: "Precise temperature regulation and smart programming.",
     price: 199,
     stock: 12,
-    image_url: "https://images.unsplash.com/photo-1567393528677-d6dfb7d8b52c"
+    images: ["https://images.unsplash.com/photo-1594818821917-bc60c32752e5"]
   }
 ];
 
