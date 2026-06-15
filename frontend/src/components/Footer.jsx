@@ -1,10 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
-import { useLang } from "@/contexts/LanguageContext";
-
-import React from "react";
-import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Instagram, Facebook, Twitter, ShieldCheck, Award, Zap } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
