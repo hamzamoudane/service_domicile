@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { User, Package, Wrench, Lock, Mail, Phone } from "lucide-react";
+import { User, Package, Wrench, Lock, Mail, Phone, ShoppingBag, ShieldCheck, MapPin } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

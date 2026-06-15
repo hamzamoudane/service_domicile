@@ -39,22 +39,24 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 glass">
+    <header className="sticky top-0 z-50 transition-all duration-300 glass border-b border-border/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group" data-testid="nav-logo">
-            <div className="relative h-9 w-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center font-display font-extrabold transition-transform group-hover:scale-105">
-              S<span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emergency animate-pulse-ring" />
+          <Link to="/" className="flex items-center gap-3 group shrink-0" data-testid="nav-logo">
+            <div className="relative h-10 w-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-display font-black text-xl shadow-lg shadow-primary/20 transition-all group-hover:scale-110 group-hover:rotate-3">
+              S<span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emergency border-2 border-background animate-pulse-ring" />
             </div>
-            <div className="hidden sm:block leading-tight">
-              <div className="font-display font-extrabold tracking-tight text-base">SOS Dépannage</div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground -mt-0.5">France · 24/7</div>
+            <div className="hidden sm:block leading-[1.1]">
+              <div className="font-display font-black tracking-tighter text-lg uppercase group-hover:text-primary transition-colors">SOS Dépannage</div>
+              <div className="text-[9px] uppercase tracking-[0.3em] font-black text-muted-foreground/60 flex items-center gap-1.5">
+                <span className="h-1 w-1 rounded-full bg-primary" /> France · 24h/24
+              </div>
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1 p-1 bg-muted/30 rounded-2xl border border-border/50">
             {NAV.map((n) => (
               <NavLink
                 key={n.to}
@@ -62,62 +64,68 @@ export default function Header() {
                 end={n.to === "/"}
                 data-testid={`nav-${n.id}`}
                 className={({ isActive }) =>
-                  `px-3 py-2 text-sm font-medium rounded-md transition-colors hover:text-foreground hover:bg-muted ${
-                    isActive ? "text-foreground bg-muted" : "text-muted-foreground"
+                  `px-5 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all duration-200 ${
+                    isActive 
+                      ? "text-primary bg-background shadow-sm" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`
                 }
               >
-                {t(n.key)}
+                {t(n.key).replace("nav_", "")}
               </NavLink>
             ))}
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <a
               href="tel:+33180888888"
-              className="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg bg-emergency text-emergency-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+              className="hidden xl:flex items-center gap-2.5 px-5 h-11 rounded-xl bg-emergency text-emergency-foreground font-black text-xs uppercase tracking-widest hover:scale-[1.03] active:scale-[0.98] transition-all shadow-lg shadow-emergency/20"
               data-testid="emergency-call-btn"
             >
-              <Phone className="h-4 w-4" />
-              <span>01 80 88 88 88</span>
+              <Phone className="h-3.5 w-3.5" />
+              <span>Dépannage 24/7</span>
             </a>
 
-            {/* Language toggle */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" data-testid="language-toggle" aria-label="Language">
-                  <Languages className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLang("fr")} data-testid="lang-fr">
-                  <span className="mr-2">🇫🇷</span> Français {lang === "fr" && "✓"}
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLang("en")} data-testid="lang-en">
-                  <span className="mr-2">🇬🇧</span> English {lang === "en" && "✓"}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center gap-1 h-11 p-1 bg-muted/40 rounded-xl border border-border/50">
+                {/* Language toggle */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg hover:bg-background" data-testid="language-toggle">
+                      <Languages className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="rounded-xl p-2 border-border/40 glass">
+                    <DropdownMenuItem onClick={() => setLang("fr")} className="rounded-lg font-bold text-xs uppercase tracking-wider">
+                      <span className="mr-2 opacity-70">FR</span> Français {lang === "fr" && "✓"}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setLang("en")} className="rounded-lg font-bold text-xs uppercase tracking-wider">
+                      <span className="mr-2 opacity-70">EN</span> English {lang === "en" && "✓"}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
 
-            {/* Theme toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggle}
-              data-testid="theme-toggle"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
+                <div className="w-px h-4 bg-border/50 mx-1" />
+
+                {/* Theme toggle */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-9 w-9 rounded-lg hover:bg-background"
+                  onClick={toggle}
+                  data-testid="theme-toggle"
+                >
+                  {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                </Button>
+            </div>
 
             {/* Cart */}
-            <Link to="/cart" className="relative" data-testid="nav-cart">
-              <Button variant="ghost" size="icon" aria-label="Cart">
-                <ShoppingCart className="h-5 w-5" />
+            <Link to="/cart" className="relative group" data-testid="nav-cart">
+              <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl bg-muted/40 border border-border/50 hover:bg-primary hover:text-primary-foreground group-hover:border-primary transition-all">
+                <ShoppingCart className="h-4 w-4" />
               </Button>
               {count > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 min-w-5 rounded-full bg-emergency text-emergency-foreground text-[10px] font-bold flex items-center justify-center px-1">
+                <span className="absolute -top-1 -right-1 h-5 min-w-5 rounded-full bg-emergency text-emergency-foreground text-[10px] font-black flex items-center justify-center px-1 border-2 border-background shadow-lg">
                   {count}
                 </span>
               )}
@@ -127,40 +135,45 @@ export default function Header() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" data-testid="user-menu">
-                    <User className="h-5 w-5" />
+                  <Button variant="ghost" size="icon" className="h-11 w-11 rounded-xl bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-primary-foreground transition-all" data-testid="user-menu">
+                    <User className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel className="flex flex-col">
-                    <span className="font-semibold">{user.name}</span>
-                    <span className="text-xs text-muted-foreground font-normal">{user.email}</span>
+                <DropdownMenuContent align="end" className="w-64 rounded-2xl p-3 border-border/40 glass">
+                  <DropdownMenuLabel className="flex items-center gap-3 p-3 mb-2 bg-muted/50 rounded-xl">
+                    <div className="h-10 w-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center font-black">{user.name.charAt(0)}</div>
+                    <div className="flex flex-col">
+                        <span className="font-black text-sm tracking-tight">{user.name}</span>
+                        <span className="text-[10px] uppercase font-bold text-muted-foreground opacity-60">Membre Premium</span>
+                    </div>
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link to="/account" data-testid="menu-account">
-                      <User className="h-4 w-4 mr-2" /> {t("nav_account")}
-                    </Link>
-                  </DropdownMenuItem>
-                  {user.role === "admin" && (
-                    <DropdownMenuItem asChild>
-                      <Link to="/admin" data-testid="menu-admin">
-                        <ShieldCheck className="h-4 w-4 mr-2" /> {t("nav_admin")}
-                      </Link>
-                    </DropdownMenuItem>
-                  )}
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} data-testid="menu-logout">
-                    <LogOut className="h-4 w-4 mr-2" /> {t("nav_logout")}
+                  <DropdownMenuSeparator className="bg-border/40" />
+                  <div className="py-2">
+                      <DropdownMenuItem asChild className="rounded-lg p-2.5 font-bold text-xs uppercase tracking-widest cursor-pointer">
+                        <Link to="/account" data-testid="menu-account">
+                          <User className="h-3.5 w-3.5 mr-3 opacity-60" /> Mon Espace
+                        </Link>
+                      </DropdownMenuItem>
+                      {user.role === "admin" && (
+                        <DropdownMenuItem asChild className="rounded-lg p-2.5 font-bold text-xs uppercase tracking-widest cursor-pointer text-primary">
+                          <Link to="/admin" data-testid="menu-admin">
+                            <ShieldCheck className="h-3.5 w-3.5 mr-3" /> Console Admin
+                          </Link>
+                        </DropdownMenuItem>
+                      )}
+                  </div>
+                  <DropdownMenuSeparator className="bg-border/40" />
+                  <DropdownMenuItem onClick={handleLogout} className="rounded-lg p-2.5 font-bold text-xs uppercase tracking-widest cursor-pointer text-destructive hover:bg-destructive/10">
+                    <LogOut className="h-3.5 w-3.5 mr-3" /> {t("nav_logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="hidden sm:flex items-center gap-1">
-                <Button variant="ghost" size="sm" asChild data-testid="nav-login">
+              <div className="hidden sm:flex items-center gap-1.5 ml-2">
+                <Button variant="ghost" size="sm" className="h-11 px-6 rounded-xl font-black text-xs uppercase tracking-widest" asChild data-testid="nav-login">
                   <Link to="/login">{t("nav_login")}</Link>
                 </Button>
-                <Button size="sm" asChild data-testid="nav-register">
+                <Button size="sm" className="h-11 px-6 rounded-xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary/20 transition-transform hover:scale-[1.02]" asChild data-testid="nav-register">
                   <Link to="/register">{t("nav_register")}</Link>
                 </Button>
               </div>
@@ -169,10 +182,9 @@ export default function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="lg:hidden h-11 w-11 rounded-xl bg-muted/40"
               onClick={() => setOpen((v) => !v)}
               data-testid="mobile-menu-toggle"
-              aria-label="Menu"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -181,8 +193,8 @@ export default function Header() {
 
         {/* Mobile nav */}
         {open && (
-          <div className="lg:hidden pb-4 animate-slide-down" data-testid="mobile-menu">
-            <nav className="flex flex-col gap-1 pt-2">
+          <div className="lg:hidden pb-6 animate-fade-up" data-testid="mobile-menu">
+            <nav className="flex flex-col gap-2 pt-4">
               {NAV.map((n) => (
                 <NavLink
                   key={n.to}
@@ -190,8 +202,8 @@ export default function Header() {
                   end={n.to === "/"}
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `px-3 py-2.5 text-sm font-medium rounded-md ${
-                      isActive ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted"
+                    `px-5 py-4 text-xs font-black uppercase tracking-[0.2em] rounded-2xl border transition-all ${
+                      isActive ? "bg-primary text-primary-foreground border-primary shadow-lg" : "bg-card border-border/50 text-muted-foreground"
                     }`
                   }
                 >
@@ -199,11 +211,11 @@ export default function Header() {
                 </NavLink>
               ))}
               {!user && (
-                <div className="flex gap-2 mt-2">
-                  <Button variant="outline" className="flex-1" asChild>
+                <div className="grid grid-cols-2 gap-3 mt-4">
+                  <Button variant="outline" className="h-14 rounded-2xl font-black uppercase tracking-widest text-[10px]" asChild>
                     <Link to="/login" onClick={() => setOpen(false)}>{t("nav_login")}</Link>
                   </Button>
-                  <Button className="flex-1" asChild>
+                  <Button className="h-14 rounded-2xl font-black uppercase tracking-widest text-[10px]" asChild>
                     <Link to="/register" onClick={() => setOpen(false)}>{t("nav_register")}</Link>
                   </Button>
                 </div>
