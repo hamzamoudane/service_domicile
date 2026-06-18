@@ -99,6 +99,9 @@ export const translations = {
     city: "Ville",
     postal_code: "Code postal",
     notes: "Remarques (optionnel)",
+    payment_method: "Mode de paiement",
+    payment_cod: "Paiement à la livraison",
+    payment_whatsapp: "Commander via WhatsApp (Paiement à la livraison)",
     submit_order: "Passer la commande",
     order_success: "Commande envoyée avec succès",
 
@@ -172,7 +175,7 @@ export const translations = {
     contact_sent: "Message envoyé. Merci de nous avoir contactés.",
 
     // About
-    about_title: "À propos de SOS Dépannage France",
+    about_title: "À propos de Home Help",
     about_subtitle: "Une entreprise nationale dédiée à votre tranquillité",
 
     // Footer
@@ -287,6 +290,9 @@ export const translations = {
     city: "City",
     postal_code: "Postal code",
     notes: "Notes (optional)",
+    payment_method: "Payment Method",
+    payment_cod: "Cash on Delivery",
+    payment_whatsapp: "Order via WhatsApp (Cash on Delivery)",
     submit_order: "Place order",
     order_success: "Order placed successfully",
 
@@ -352,7 +358,7 @@ export const translations = {
     contact_message: "Message",
     contact_sent: "Message sent. Thank you for reaching out.",
 
-    about_title: "About SOS Dépannage France",
+    about_title: "About Home Help",
     about_subtitle: "A nationwide company dedicated to your peace of mind",
 
     footer_company: "Company",

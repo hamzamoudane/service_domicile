@@ -1,7 +1,7 @@
-# PRD — SOS Dépannage France
+# PRD — Home Help
 
 ## Original Problem Statement
-Plateforme nationale de dépannage et services à domicile 24h/24 et 7j/7 ("SOS Dépannage France"). Hybride : plateforme de services + e-commerce + gestion d'interventions. Cinq métiers (plomberie, électricité, serrurerie, chauffage, assainissement). Couverture France entière. Rôles client + admin. Mode clair/sombre. Bilingue FR/EN. UI premium.
+Plateforme nationale de dépannage et services à domicile 24h/24 et 7j/7 ("Home Help"). Hybride : plateforme de services + e-commerce + gestion d'interventions. Cinq métiers (plomberie, électricité, serrurerie, chauffage, assainissement). Couverture France entière. Rôles client + admin. Mode clair/sombre. Bilingue FR/EN. UI premium.
 
 ## Architecture
 - **Backend**: FastAPI single-file (`/app/backend/server.py`), MongoDB (motor async), JWT auth (cookies httpOnly + Bearer header), bcrypt, UUID ids.

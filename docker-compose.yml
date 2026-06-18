@@ -1,31 +1,33 @@
-version: '3.8'
+
+version: "3.8"
 
 services:
-  mongodb:
-    image: mongo:latest
+  mongo:
+    image: mongo:6.0
+    container_name: service_domicile_mongo
     ports:
       - "27017:27017"
     volumes:
-      - mongodb_data:/data/db
+      - mongo_data:/data/db
 
   backend:
     build: ./backend
+    container_name: service_domicile_backend
     ports:
       - "8000:8000"
-    env_file:
-      - .env
+    environment:
+      MONGO_URL: mongodb://mongo:27017
+      DB_NAME: service_domicile
+      JWT_SECRET: supersecretjwtkey123
+      ADMIN_EMAIL: admin@sos-depannage.fr
+      ADMIN_PASSWORD: adminpassword
+      CLIENT1_EMAIL: client1@gmail.com
+      CLIENT1_PASSWORD: client1password
+      CLIENT2_EMAIL: client2@gmail.com
+      CLIENT2_PASSWORD: client2password
+      CORS_ORIGINS: http://localhost:3000
     depends_on:
-      - mongodb
-
-  frontend:
-    build:
-      context: ./frontend
-      args:
-        - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
+      - mongo
 
 volumes:
-  mongodb_data:
+  mongo_data:

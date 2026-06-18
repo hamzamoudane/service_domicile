@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, MapPin } from "lucide-react";
+import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, MapPin, MessageCircle, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import api, { formatApiError } from "@/lib/api";
 import { useLang } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
@@ -19,6 +20,7 @@ export default function Cart() {
   const [checkout, setCheckout] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ address: "", city: "", postal_code: "", phone: "", notes: "" });
+  const [paymentMethod, setPaymentMethod] = useState("whatsapp");
 
   const handleCheckout = () => {
     if (!user) {
@@ -38,8 +40,29 @@ export default function Cart() {
     }
     setSubmitting(true);
     try {
-      await api.post("/orders", { items, ...form });
+      const orderData = { items, ...form, payment_method: paymentMethod };
+      const res = await api.post("/orders", orderData);
+      
       toast.success(t("order_success"));
+      
+      if (paymentMethod === "whatsapp") {
+        const orderId = res.data.id;
+        const phoneNum = "+33659874502"; // Replace with real WhatsApp number
+        const itemDetails = items.map(it => `- ${it.name} (x${it.quantity}): ${(it.price * it.quantity).toFixed(2)} €`).join("\n");
+        const message = encodeURIComponent(
+          `*Nouvelle Commande #${orderId.slice(-6)}*\n\n` +
+          `*Client:* ${user.name}\n` +
+          `*Email:* ${user.email}\n` +
+          `*Tel:* ${form.phone}\n` +
+          `*Adresse:* ${form.address}, ${form.postal_code} ${form.city}\n\n` +
+          `*Articles:*\n${itemDetails}\n\n` +
+          `*Total:* ${subtotal.toFixed(2)} €\n` +
+          `*Notes:* ${form.notes || "Aucune"}\n\n` +
+          `_Paiement à la livraison par WhatsApp_`
+        );
+        window.open(`https://wa.me/${phoneNum}?text=${message}`, "_blank");
+      }
+      
       clear();
       navigate("/account/orders");
     } catch (e) {
@@ -181,9 +204,29 @@ export default function Cart() {
                   <Label htmlFor="notes" className="text-[10px] uppercase tracking-widest font-black opacity-60">{t("notes")}</Label>
                   <Textarea id="notes" rows={2} className="bg-white/10 border-white/20 text-white rounded-xl focus:bg-white/20 transition-all resize-none" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
                 </div>
+
+                <div className="space-y-4 pt-4 border-t border-white/10">
+                  <Label className="text-[10px] uppercase tracking-widest font-black opacity-60">{t("payment_method")}</Label>
+                  <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-3">
+                    <div className="flex items-center space-x-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer group">
+                      <RadioGroupItem value="whatsapp" id="p-whatsapp" className="border-white/20 text-primary" />
+                      <Label htmlFor="p-whatsapp" className="flex-1 flex items-center gap-3 cursor-pointer">
+                        <MessageCircle className="h-5 w-5 text-emerald-400" />
+                        <span className="text-sm font-bold text-white">{t("payment_whatsapp")}</span>
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-3 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-all cursor-pointer">
+                      <RadioGroupItem value="cod" id="p-cod" className="border-white/20 text-primary" />
+                      <Label htmlFor="p-cod" className="flex-1 flex items-center gap-3 cursor-pointer">
+                        <Wallet className="h-5 w-5 text-amber-400" />
+                        <span className="text-sm font-bold text-white">{t("payment_cod")}</span>
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
               </div>
               <Button type="submit" className="w-full h-14 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-black uppercase tracking-widest text-xs shadow-xl shadow-primary/40 transition-all hover:scale-[1.02] active:scale-[0.98]" disabled={submitting} data-testid="submit-order">
-                {submitting ? t("loading") : t("submit_order")}
+                {submitting ? t("loading") : (paymentMethod === 'whatsapp' ? "Commander via WhatsApp" : t("submit_order"))}
               </Button>
             </form>
           )}

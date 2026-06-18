@@ -1,4 +1,4 @@
-"""End-to-end backend tests for SOS Dépannage France API."""
+"""End-to-end backend tests for Home Help API."""
 import os
 import uuid
 import pytest

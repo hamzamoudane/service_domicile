@@ -24,7 +24,7 @@ export default function About() {
         <div className="lg:col-span-7">
           <Reveal>
             <p className="text-base leading-relaxed text-muted-foreground">
-              <strong className="text-foreground">SOS Dépannage France</strong> est née d&apos;un constat simple : trouver un artisan
+              <strong className="text-foreground">Home Help</strong> est née d&apos;un constat simple : trouver un artisan
               disponible, fiable et au juste prix, surtout en situation d&apos;urgence, est devenu trop compliqué pour les
               particuliers comme pour les professionnels.
             </p>

@@ -113,7 +113,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border/40 flex flex-col sm:flex-row gap-6 justify-between items-center">
           <div className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
-            © {new Date().getFullYear()} SOS Dépannage France · Tous droits réservés
+            © {new Date().getFullYear()} Home Help · Tous droits réservés
           </div>
           <div className="flex items-center gap-8">
             <Link to="/terms" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all">Mentions Légales</Link>

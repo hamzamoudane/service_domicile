@@ -30,7 +30,7 @@ JWT_ALGORITHM = "HS256"
 ACCESS_TOKEN_MINUTES = 60 * 24 * 7  # 7 days
 REFRESH_TOKEN_DAYS = 30
 
-app = FastAPI(title="SOS Dépannage France API")
+app = FastAPI(title="Home Help API")
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer(auto_error=False)
 
@@ -207,6 +207,7 @@ class OrderBody(BaseModel):
     postal_code: str
     phone: str
     notes: Optional[str] = None
+    payment_method: str = "cod"
 
 
 class InterventionBody(BaseModel):
@@ -467,6 +468,7 @@ async def create_order(body: OrderBody, user: dict = Depends(get_current_user)):
         "postal_code": body.postal_code,
         "phone": body.phone,
         "notes": body.notes,
+        "payment_method": body.payment_method,
         "status": "pending",
         "created_at": now_iso(),
     }
@@ -803,7 +805,7 @@ async def seed_database():
 @app.on_event("startup")
 async def on_startup():
     await seed_database()
-    logger.info("✅ SOS Dépannage France API ready")
+    logger.info("✅ Home Help API ready")
 
 
 @app.on_event("shutdown")

@@ -93,7 +93,7 @@ export default function Login() {
           <div className="max-w-xl text-white space-y-6">
             <div className="h-px w-20 bg-primary shadow-[0_0_15px_rgba(15,98,254,0.8)]" />
             <h2 className="font-display font-black text-5xl leading-none">L'excellence au service de votre domicile.</h2>
-            <p className="text-xl text-white/70 font-medium leading-relaxed">Rejoignez des milliers de clients qui font confiance à SOS Dépannage France pour leurs travaux et urgences au quotidien.</p>
+            <p className="text-xl text-white/70 font-medium leading-relaxed">Rejoignez des milliers de clients qui font confiance à Home Help pour leurs travaux et urgences au quotidien.</p>
             <div className="flex items-center gap-6 pt-6">
               <div className="flex -space-x-3">
                 {[...Array(4)].map((_, i) => (
