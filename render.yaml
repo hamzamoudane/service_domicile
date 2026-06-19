@@ -1,14 +1,11 @@
 services:
   - type: web
     name: service-domicile-backend
-    env: python
+    env: docker
     region: frankfurt
-    pythonVersion: 3.11.0
     plan: free
     branch: main
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: MONGO_URL
         value: mongodb+srv://admin:wanamali@cluster0.jaw8iti.mongodb.net/?appName=Cluster0&tlsAllowInvalidCertificates=true
