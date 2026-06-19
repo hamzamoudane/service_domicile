@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: service-domicile-backend
+    env: python
+    region: frankfurt
+    plan: free
+    branch: main
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://admin:wanamali@cluster0.jaw8iti.mongodb.net/?appName=Cluster0
+      - key: DB_NAME
+        value: service_domicile
+      - key: JWT_SECRET
+        value: supersecretjwtkey123
+      - key: CORS_ORIGINS
+        value: https://servicedomicile.vercel.app
+      - key: ADMIN_EMAIL
+        value: admin@sos-depannage.fr
+      - key: ADMIN_PASSWORD
+        value: adminpassword
+      - key: CLIENT1_EMAIL
+        value: client1@gmail.com
+      - key: CLIENT1_PASSWORD
+        value: client1password
+      - key: CLIENT2_EMAIL
+        value: client2@gmail.com
+      - key: CLIENT2_PASSWORD
+        value: client2password

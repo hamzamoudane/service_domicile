@@ -1,11 +1,6 @@
-import os
-from fastapi import FastAPI, APIRouter
+import sys
+from pathlib import Path
 
-app = FastAPI()
-router = APIRouter(prefix="/api")
+sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 
-@router.get("/health")
-async def health():
-    return {"status": "ok", "env": {k: v[:20] for k, v in sorted(os.environ.items()) if not k.startswith("__")}}
-
-app.include_router(router)
+from server import app
