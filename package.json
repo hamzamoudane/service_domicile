@@ -1,9 +1,0 @@
-{
-  "name": "service-domicile",
-  "private": true,
-  "engines": { "node": "20.x" },
-  "scripts": {
-    "build": "cd frontend && npm install --legacy-peer-deps && npm run build",
-    "vercel-build": "cd frontend && npm install --legacy-peer-deps && npm run build"
-  }
-}
