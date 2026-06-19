@@ -1,9 +1,6 @@
 import sys
-import os
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 
-import server
-
-app = server.app
+from server import app
