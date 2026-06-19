@@ -13,6 +13,7 @@ from typing import List, Optional, Literal
 
 import bcrypt
 import jwt
+import ssl
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, Request, Response, Query
 from fastapi.security import HTTPBearer
 from starlette.middleware.cors import CORSMiddleware
@@ -22,7 +23,10 @@ from pydantic import BaseModel, Field, EmailStr, ConfigDict
 
 # ===== Configuration =====
 mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url, tlsAllowInvalidCertificates=True)
+ssl_ctx = ssl.create_default_context()
+ssl_ctx.check_hostname = False
+ssl_ctx.verify_mode = ssl.CERT_NONE
+client = AsyncIOMotorClient(mongo_url, tls=True, ssl_context=ssl_ctx)
 db = client[os.environ['DB_NAME']]
 
 JWT_SECRET = os.environ['JWT_SECRET']
