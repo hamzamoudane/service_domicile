@@ -5,7 +5,6 @@ services:
     region: frankfurt
     plan: free
     branch: main
-    rootDir: backend
     envVars:
       - key: MONGO_URL
         value: mongodb+srv://admin:wanamali@cluster0.jaw8iti.mongodb.net/?appName=Cluster0&tlsAllowInvalidCertificates=true
