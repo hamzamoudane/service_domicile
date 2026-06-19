@@ -8,6 +8,7 @@ import os
 import uuid
 import logging
 import secrets
+import ssl
 from datetime import datetime, timezone, timedelta
 from typing import List, Optional, Literal
 
@@ -22,7 +23,10 @@ from pydantic import BaseModel, Field, EmailStr, ConfigDict
 
 # ===== Configuration =====
 mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url, tlsAllowInvalidCertificates=True)
+ssl_ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+ssl_ctx.check_hostname = False
+ssl_ctx.verify_mode = ssl.CERT_NONE
+client = AsyncIOMotorClient(mongo_url, tls=True, tls_context=ssl_ctx)
 db = client[os.environ['DB_NAME']]
 
 JWT_SECRET = os.environ['JWT_SECRET']
